@@ -14,15 +14,16 @@ function TodoList(){
     return(
         <>
         <h1>Todo List</h1>
-        <input type="text" placeholder="Tambah Aktivitas" onChange={(e) => setInputTodos(e.target.value)} value={inputTodos} />
+        <input type="text" placeholder="Tambah Aktivitas" onChange={() => setInputTodos(e.target.value)} value={inputTodos} />
 
         <button onClick={addTodos}>Tambah</button>
 
         <ul>
-            {todos.map((item, index) =>{
-                <li key={index}>{item}</li>;
-                <button onClick="{() => deleteTodo(index)}">Delete</button>
-            })}
+            {todos.map((item, index) =>(
+            <li key={index}>
+                {item} <button onClick={() => deleteTodo(index)}>Delete</button>
+            </li>
+            ))}
             
         </ul>
         </>

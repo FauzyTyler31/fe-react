@@ -1,33 +1,41 @@
-import {useState} from 'react';
+import { useState } from "react";
 
-function TodoList(){
-    const [inputTodos, setInputTodos] = useState("");
-    const [todos, setTodos] = useState([]);
+function TodoList() {
+  const [inputTodos, setInputTodos] = useState("");
+  const [todos, setTodos] = useState([]);
 
-    const addTodos = () => {
-        if (inputTodos,trim() === "") return;
+  const addTodos = () => {
+    if (inputTodos.trim() === "") return;
 
-        setTodos([...todos, inputTodos]);
-        setInputTodos("");
+    setTodos([...todos, inputTodos]);
+    setInputTodos(""); // reset input
+  };
 
-    }
-    return(
-        <>
-        <h1>Todo List</h1>
-        <input type="text" placeholder="Tambah Aktivitas" onChange={() => setInputTodos(e.target.value)} value={inputTodos} />
+  const deleteTodo = (index) => {
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+  };
 
-        <button onClick={addTodos}>Tambah</button>
+  return (
+    <>
+      <h1>Todo List</h1>
+      <input
+        type="text"
+        placeholder="Tambah Aktifitas"
+        value={inputTodos}
+        onChange={(e) => setInputTodos(e.target.value)}
+      />
 
-        <ul>
-            {todos.map((item, index) =>(
-            <li key={index}>
-                {item} <button onClick={() => deleteTodo(index)}>Delete</button>
-            </li>
-            ))}
-            
-        </ul>
-        </>
-    );
+      <button onClick={addTodos}>Tambah</button>
+
+      <ul>
+        {todos.map((item, index) => (
+          <li key={index}>
+            {item} <button onClick={() => deleteTodo(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
-
 export default TodoList;

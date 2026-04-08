@@ -7,28 +7,30 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const LoginPage = () => {
-const navigate = useNavigate();
-const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
-});
+  });
 
-const [errors, setErrors] = useState({});
-const handleChange = (e) => {
+  const [errors, setErrors] = useState({});
+  const handleChange = (e) => {
     setFormData({
-    ...formData,
-    [e.target.name]: e.target.value,
+      ...formData,
+      [e.target.name]: e.target.value,
     });
-};
+  };
 
-const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setErrors({});
 
     try {
-    const res = await axios.post("http://127.0.0.1:8000/api/login", formData);
+      const res = await axios.post("http://127.0.0.1:8000/api/login", formData);
+      localStorage.setItem("token", res.data?.token);
+      localStorage.setItem("user", JSON.stringify(res.data?.data));
 
-    Swal.fire({
+      Swal.fire({
         icon: "success",
         title: "Login success",
         text: res.data?.message || "Welcome",
